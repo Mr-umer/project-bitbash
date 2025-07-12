@@ -1,70 +1,196 @@
-# Getting Started with Create React App
+# AlphaCareers - Full-Stack Job Board
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**AlphaCareers** is a comprehensive, full-stack job board application designed for quantitative professionals in the fields of risk, data, and finance. This project was developed as a take-home assessment for a full-stack developer position. It features a complete CRUD API, a data scraper for populating the job board, and a polished, responsive React user interface.
 
-## Available Scripts
+**Live Demo Video:** `[LINK_TO_YOUR_VIDEO_DEMO_ON_GOOGLE_DRIVE_OR_VIMEO]`
 
-In the project directory, you can run:
 
-### `npm start`
+*(Suggestion: Take a beautiful screenshot of your final app and replace the placeholder link above. You can upload your image to a site like [Imgur](https://imgur.com/upload) to get a link.)*
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Table of Contents
 
-### `npm test`
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [System Architecture](#system-architecture)
+- [Setup and Installation](#setup-and-installation)
+- [Running the Application](#running-the-application)
+- [API Endpoints](#api-endpoints)
+- [Assumptions & Trade-offs](#assumptions--trade-offs)
+- [Challenges & Solutions](#challenges--solutions)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Project Overview
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The core task was to build a full-stack web application that lists job postings. The project demonstrates a wide range of skills, including backend development with Flask, frontend development with React, database management with MySQL, and web scraping with Selenium. The application allows users to view, add, edit, delete, filter, and sort job listings in a modern and user-friendly interface.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-   **Dynamic Job Board:** Clean, responsive UI for browsing job listings.
+-   **Full CRUD Functionality:** Users can Create, Read, Update, and Delete job postings through a seamless modal interface.
+-   **Server-Side Filtering & Sorting:** Efficiently filter jobs by keyword, location, and job type. Sort results by date or company name.
+-   **Interactive UI:**
+    -   Hero landing page with an integrated search bar.
+    -   Clickable job rows to view full details in a modal pop-up.
+    -   "Show More" and "Show Less" pagination for a smooth browsing experience.
+    -   Professional hover effects and a consistent, themed design.
+-   **Automated Data Seeding:** A Selenium scraper pulls real job data from an external source to populate the database.
+-   **User Feedback:** Toast notifications provide clear feedback for all user actions (add, update, delete).
 
-### `npm run eject`
+## Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-   **Backend:** Python, Flask, Flask-SQLAlchemy
+-   **Frontend:** React.js, Material-UI (MUI) for components and styling
+-   **Database:** MySQL
+-   **Web Scraper:** Python, Selenium, webdriver-manager
+-   **API Testing:** Postman
+-   **State Management:** React Hooks (`useState`, `useEffect`, `useCallback`)
+-   **API Communication:** Axios
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## System Architecture
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The application is structured as a monorepo with three main components:
 
-## Learn More
+1.  **Backend (`/backend`):** A Flask-based REST API server that handles all business logic and database interactions. It exposes a set of endpoints for the frontend to consume.
+2.  **Frontend (`/frontend`):** A single-page application (SPA) built with React. It communicates with the Flask backend via API calls to fetch and manipulate job data, providing a dynamic user experience.
+3.  **Scraper (`/backend/scrape.py`):** A standalone Python script that uses Selenium to control a web browser, scrape job data from `actuarylist.com`, and populate the MySQL database directly.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Setup and Installation
 
-### Code Splitting
+Follow these steps to set up and run the project on your local machine.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Prerequisites
 
-### Analyzing the Bundle Size
+-   Python (`[YOUR_PYTHON_VERSION]`, e.g., 3.10+)
+-   Node.js & npm (`[YOUR_NODE_VERSION]`, e.g., 18.0+)
+-   A running MySQL server instance
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 1. Clone the Repository
 
-### Making a Progressive Web App
+```bash
+git clone https://github.com/[YOUR_GITHUB_USERNAME]/[YOUR_REPO_NAME].git
+cd [YOUR_REPO_NAME]
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 2. Backend Setup
 
-### Advanced Configuration
+```bash
+# Navigate to the backend directory
+cd backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Create and activate a Python virtual environment
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+# source venv/bin/activate
 
-### Deployment
+# Install the required Python packages
+pip install -r requirements.txt
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 3. Database Configuration
 
-### `npm run build` fails to minify
+1.  Ensure your MySQL server is running.
+2.  Create a new database. You can use a tool like MySQL Workbench and run:
+    ```sql
+    CREATE DATABASE job_board_db;
+    ```
+3.  In the `/backend` directory, create a file named `.env`.
+4.  Copy the contents of `.env.example` into `.env` and update the `DATABASE_URL` with your MySQL credentials:
+    ```
+    # backend/.env
+    DATABASE_URL="mysql+pymysql://YOUR_MYSQL_USER:YOUR_MYSQL_PASSWORD@localhost/job_board_db"
+    ```
+5.  Create the database tables by running the initialization script:
+    ```bash
+    # Make sure your virtual environment is active
+    python init_db.py
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 4. Frontend Setup
+
+```bash
+# Navigate to the frontend directory from the project root
+cd frontend
+
+# Install the required npm packages
+npm install
+```
+
+---
+
+## Running the Application
+
+You will need to have two terminals open to run both the backend and frontend servers simultaneously.
+
+**Terminal 1: Start the Backend Server**
+
+```bash
+cd backend
+venv\Scripts\activate
+python app.py
+```
+The backend will be running at `http://127.0.0.1:5000`.
+
+**Terminal 2: Start the Frontend Server**
+
+```bash
+cd frontend
+npm start
+```
+The frontend application will automatically open in your browser at `http://localhost:3000`.
+
+**Optional: Run the Scraper**
+
+To populate the database with fresh data, run the scraper script from the `backend` directory.
+
+```bash
+# Make sure you are in the /backend directory with venv active
+python scrape.py
+```
+
+---
+
+## API Endpoints
+
+The backend provides the following RESTful API endpoints:
+
+| Method | Endpoint              | Description                                        |
+| :----- | :-------------------- | :------------------------------------------------- |
+| `GET`  | `/api/jobs`           | Get all jobs. Supports filtering and sorting.      |
+| `POST` | `/api/jobs`           | Create a new job.                                  |
+| `PUT`  | `/api/jobs/<id>`      | Update an existing job by its ID.                  |
+| `DELETE`| `/api/jobs/<id>`    | Delete a job by its ID.                            |
+
+---
+
+## Assumptions & Trade-offs
+
+-   **Date Sorting:** The `posting_date` is scraped as a relative string (e.g., "2d ago"). To implement a fast and reliable date sort under the project's time constraints, the "Newest First" and "Oldest First" options sort by the job's database ID. In a production environment, the next step would be to parse these strings into proper `DateTime` objects in the scraper for precise chronological sorting.
+-   **Tags as String:** Tags are stored as a single comma-separated string in the database for simplicity. A more scalable production solution would use a many-to-many relationship with a separate `tags` table.
+-   **No User Authentication:** As per the project scope, a user login/authentication system was not implemented.
+
+---
+
+## Challenges & Solutions
+
+One of the main challenges was with the web scraper. The target website loads job content dynamically after the user scrolls down the page. Initially, the scraper found zero jobs.
+
+**Solution:**
+1.  The problem was diagnosed by pausing the Selenium browser and observing that the jobs were not present on the initial page load.
+2.  The solution was to use `driver.execute_script("window.scrollTo(0, 800);")` to programmatically scroll the page.
+3.  I then implemented an explicit wait (`WebDriverWait`) to pause the script until the job list container was visible, making the scraper robust against variable page load times. This ensured the scraper could reliably access the job data.
+
+---
+
+Thank you for the opportunity to work on this project!
+
+**[YOUR_NAME]**
