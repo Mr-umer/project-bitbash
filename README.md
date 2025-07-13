@@ -73,7 +73,7 @@ Follow these steps to set up and run the project on your local machine.
 
 ```bash
 git https://github.com/Mr-umer/project-bitbash
-cd [YOUR_REPO_NAME]
+cd project-bitbash
 ```
 
 ### 2. Backend Setup
